@@ -31,13 +31,13 @@ function copyPassword() {
 return
 };
 
-//final shuffle function for more randomness
+//final shuffle function for more randomness, found on stack overflow credit: Maximilian Lindsey, https://stackoverflow.com/a/34025991
 function shufflePassword(string) {
   var parts = string.split(''); //stores each character in the string into an array
   for (var i = parts.length; i > 0;) { //for loop that runs for the entire length of the array
       var rand = parseInt(Math.random() * i); //creates a randoml value to reconstruct the string with
       var temp = parts[--i]; //decreaes the i var decrementally
-      parts[i] = parts[ran]; //swaps indexes with a random value
+      parts[i] = parts[rand]; //swaps indexes with a random value
       parts[rand] = temp; 
   }
   return parts.join(''); //reconstructs string after shuffling, and returns it
@@ -71,7 +71,7 @@ function generatePassword() {
     var charLower = prompt(prompts.lowerCase);
     console.log(charSet);
   };
-  if (charLower.toLowerCase() !== "y" && charLower.toLowerCase() !== "n") {
+  if (charLower.toLowerCase() !== "y" && charLower.toLowerCase() !== "n" || !charLower) {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
@@ -86,7 +86,7 @@ function generatePassword() {
     var charNumbers = prompt(prompts.numbers);
     console.log(charSet);
   };
-  if (charNumbers.toLowerCase() !== "y" && charNumbers.toLowerCase() !== "n") {
+  if (charNumbers.toLowerCase() !== "y" && charNumbers.toLowerCase() !== "n" || charNumbers) {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
@@ -101,7 +101,7 @@ function generatePassword() {
     var charSymbols = prompt(prompts.symbols);
     console.log(charSet);
   };
-  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n") {
+  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n" || charNumbers) {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
@@ -116,9 +116,9 @@ function generatePassword() {
     var charLength = Number(prompt(prompts.length));
     console.log(charSet);
   };
-  if (charLength >= 8 && charLength <= 128 && charLength !== undefined) { //checks for correct password length range, and an input
+  if (charLength >= 8 && charLength <= 128 && charLength !== undefined) { //checks for correct password length range
     passLength = charLength;
-    alert("You chose " + passLength + " for your password length.") //tells them the range they selected
+    alert("You chose " + passLength + " for your password length.") //tells user the password length they selected
   }
   else {
     alert("You must choose a number between: 8-128!");
@@ -129,7 +129,7 @@ function generatePassword() {
   var characterSeed = ""; //need to define a empty string for our while loop
   var passFun = ""; //defines the final password variable
   while (characterSeed.length < (passLength - criteriaSeed.length)) {  //a while loop that runs until it hits our user inputed password length - the criteriaSeed length. 
-  characterSeed += passwordChars[Math.floor(Math.random() * passwordChars.length)]; //makes our character seed a random string of characters from the passwordChars variable
+    characterSeed += passwordChars[Math.floor(Math.random() * passwordChars.length)]; //makes our character seed a random string of characters from the passwordChars variable
 };
   var passwordSeed = criteriaSeed.join(''); //joins our criteriaSeed array into a string call passwordSeed
   passFun += (passwordSeed += characterSeed); //adds our passwordSeed string and characterseed together to get the final length the user input
