@@ -1,6 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-
+var copyBtn = document.querySelector("#copy")
 var passLength;
 
 var chars = {
@@ -20,9 +20,18 @@ var prompts = {
 
 // Write password to the #password input
 function writePassword() {
-  document.getElementById("password").innerHTML = generatePassword();
+  document.getElementById("password").value = generatePassword();
 };
 
+//copy password to clipboard
+function copyPassword() {
+  var copyText = document.getElementById("password").value
+  navigator.clipboard.writeText(copyText);
+  alert("Your password was copied to the clip board!");
+return
+};
+
+//final shuffle function for more randomness
 function shufflePassword(string) {
   var parts = string.split('');
   for (var i = parts.length; i > 0;) {
@@ -34,6 +43,7 @@ function shufflePassword(string) {
   return parts.join('');
 };
 
+//used to pick at least one of each critieria for the password
 function pickArray(mainArray) {
   var criteriaSeed = [];
   for (var x = 0; x < mainArray.length; x++) {
@@ -46,14 +56,14 @@ function pickArray(mainArray) {
 };
 
 function generatePassword() {
-  var charSet = [];
+  var charSet = []; //our charset multi-dimensional array, it will hold all the criteria the user chooses
   var charUpper = prompt(prompts.upperCase);
-  if (charUpper.toLowerCase() !== "y" && charUpper.toLowerCase() !== "n") {
+  if (charUpper.toLowerCase() !== "y" && charUpper.toLowerCase() !== "n" || !charUpper) { //checking for valid user input
     alert("You must type Y or N to confirm yes or no.");
-    return
+    return //ends the program if no valid input
   }
   else if (charUpper.toLowerCase() === "y") {
-    charSet.push(chars.upper);
+    charSet.push(chars.upper); //pushes the chars.upper array to our charset array
     alert("Upper case letters will be included");
     var charLower = prompt(prompts.lowerCase);
     console.log(charSet);
@@ -134,3 +144,5 @@ function generatePassword() {
 };
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+copyBtn.addEventListener("click", copyPassword);
+
