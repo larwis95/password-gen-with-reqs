@@ -1,7 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 var copyBtn = document.querySelector("#copy")
-var passLength;
 
 var chars = {
   upper: ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"],
@@ -26,12 +25,8 @@ function setText () {
 };
 
 function writePassword() {
-  if (generatePassword() === undefined) {
-    document.getElementById("password").value = "Generate a password below!";
-  }
-  else {
-  document.getElementById("password").value = generatePassword();
-  };
+ document.getElementById("password").value = "Generate a password below!";
+ document.getElementById("password").value = generatePassword();
 };
 
 //copy password to clipboard
@@ -62,6 +57,7 @@ function shufflePassword(string) {
 //used to pick at least one of each critieria for the password
 function pickArray(mainArray) {
   var criteriaSeed = [];
+  console.log(mainArray.length)
   if (mainArray.length === 1) {
     var splitArray = mainArray[0][0].split('')
     criteriaSeed.push(splitArray[Math.floor(Math.random() * splitArray.length)]);
@@ -78,9 +74,10 @@ function pickArray(mainArray) {
 
 function generatePassword() {
   var charSet = []; //our charset multi-dimensional array, it will hold all the criteria the user chooses
-  var failSafe = []
+  var failSafe = [];
+  var passLength;
   var charUpper = prompt(prompts.upperCase);
-  if (charUpper.toLowerCase() !== "y" && charUpper.toLowerCase() !== "n" || !charUpper) { //checking for valid user input
+  if (charUpper.toLowerCase() !== "y" && charUpper.toLowerCase() !== "n") { //checking for valid user input
     alert("You must type Y or N to confirm yes or no.");
     return //ends the program if no valid input
   }
@@ -94,7 +91,7 @@ function generatePassword() {
     var charLower = prompt(prompts.lowerCase);
     failSafe.push('n');
   };
-  if (charLower.toLowerCase() !== "y" && charLower.toLowerCase() !== "n" || !charLower) {
+  if (charLower.toLowerCase() !== "y" && charLower.toLowerCase() !== "n") {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
@@ -108,7 +105,7 @@ function generatePassword() {
     var charNumbers = prompt(prompts.numbers);
     failSafe.push('n');
   };
-  if (charNumbers.toLowerCase() !== "y" && charNumbers.toLowerCase() !== "n" || !charNumbers) {
+  if (charNumbers.toLowerCase() !== "y" && charNumbers.toLowerCase() !== "n") {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
@@ -122,7 +119,7 @@ function generatePassword() {
     var charSymbols = prompt(prompts.symbols);
     failSafe.push('n');
   };
-  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n" || !charSymbols) {
+  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n") {
     alert("You must type Y or N to confirm yes or no.");
     return;
   }
@@ -145,10 +142,10 @@ function generatePassword() {
     return;
   }
   console.log(failSafe.length);
-  // if (failSafe.length == 4) {
-  //   alert("You must select at least one criteria!");
-  // return;
-  // };
+  if (failSafe.length == 4) {
+    alert("You must select at least one criteria!");
+  return;
+  };
   var criteriaSeed = pickArray(charSet) //calls custom function to guarantee user criteria is in the password
   var passwordChars = charSet.flat(1).join(''); //flatens our multi-dimensional array, and combines it into a single string
   var characterSeed = ""; //need to define a empty string for our while loop
