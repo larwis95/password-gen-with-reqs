@@ -101,7 +101,7 @@ function generatePassword() {
     var charSymbols = prompt(prompts.symbols);
     console.log(charSet);
   };
-  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n" || charNumbers) {
+  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n" || charSymbols) {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
