@@ -64,12 +64,10 @@ function generatePassword() {
     charSet.push(chars.upper); //pushes the chars.upper array to our charset array
     alert("Upper case letters will be included");
     var charLower = prompt(prompts.lowerCase); //starts next prompt
-    console.log(charSet);
   } 
   else {
     alert("Upper case characters will not be included"); //alerts user criteria will be included
     var charLower = prompt(prompts.lowerCase);
-    console.log(charSet);
   };
   if (charLower.toLowerCase() !== "y" && charLower.toLowerCase() !== "n" || !charLower) {
     alert("You must type Y or N to confirm yes or no.");
@@ -79,14 +77,12 @@ function generatePassword() {
     charSet.push(chars.lower);
     alert("Lower case letters will be included");
     var charNumbers = prompt(prompts.numbers);
-    console.log(charSet);
   } 
   else {
     alert("Lower case characters will not be included");
     var charNumbers = prompt(prompts.numbers);
-    console.log(charSet);
   };
-  if (charNumbers.toLowerCase() !== "y" && charNumbers.toLowerCase() !== "n" || charNumbers) {
+  if (charNumbers.toLowerCase() !== "y" && charNumbers.toLowerCase() !== "n" || !charNumbers) {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
@@ -94,14 +90,12 @@ function generatePassword() {
     charSet.push(chars.numbers);
     alert("Numbers will be included");
     var charSymbols = prompt(prompts.symbols); 
-    console.log(charSet);
   } 
   else {
     alert("Numbers will not be included");
     var charSymbols = prompt(prompts.symbols);
-    console.log(charSet);
   };
-  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n" || charSymbols) {
+  if (charSymbols.toLowerCase() !== "y" && charSymbols.toLowerCase() !== "n" || !charSymbols) {
     alert("You must type Y or N to confirm yes or no.");
     return
   }
@@ -109,12 +103,10 @@ function generatePassword() {
     charSet.push(chars.symbols);
     alert("Symbols will be included");
     var charLength = Number(prompt(prompts.length)); 
-    console.log(charSet);
   } 
   else {
     alert("Symbols will not be included");
     var charLength = Number(prompt(prompts.length));
-    console.log(charSet);
   };
   if (charLength >= 8 && charLength <= 128 && charLength !== undefined) { //checks for correct password length range
     passLength = charLength;
