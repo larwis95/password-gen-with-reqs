@@ -31,8 +31,8 @@ class promptsClass {  //originally had huge if else tree, experimented with clas
 
   validate() {
     if (this.promp === null || this.promp.toLowerCase() !== "y" && this.promp.toLowerCase() !== "n") { //checking for valid user input
-      alert("You must type Y or N to confirm yes or no.");
-      throw new Error("Invalid Input expected Y/N"); //ends the program if no valid input, and throws error to console
+      alert("You must type Y or N to confirm yes or no.");    
+      return false;
     }
     else if (this.promp.toLowerCase() === "y") {
       this.charArray.push(this.characters); //pushes to our charsetarray
@@ -54,7 +54,13 @@ function setText () {
 
 // Write password to the #password input
 function writePassword() {
- document.getElementById("password").value = generatePassword();
+  var password = generatePassword();
+  if (password === undefined) {
+  document.getElementById("password").value = "Generate a password below!";
+  }
+  else {
+    document.getElementById("password").value = password;
+  };
 };
 
 //copy password to clipboard
@@ -106,7 +112,7 @@ if (charLength >= 8 && charLength <= 128 && charLength !== undefined) { //checks
 }
 else {
   alert("You must choose a number between: 8-128!");
-  throw new Error("Invalid Input for Password Length expected 8-128") //ends function and throws error to console
+  return false;
 }
 };
 
@@ -115,19 +121,30 @@ function generatePassword() {
   failSafe = [] //failsafe array to check if every input was "n"
   var passLength;
   var charUpper = new promptsClass(prompts.upperCase, "Upper Case", chars.upper, charSet);
-  charUpper.validate(); //makes sure we have a valid input for the prompt
+  if (charUpper.validate() === false) {
+    return;
+  }; //makes sure we have a valid input for the prompt
   var charLower = new promptsClass(prompts.lowerCase, "Lower Case", chars.lower, charSet);
-  charLower.validate();
+  if (charLower.validate() === false) {
+    return;
+  };
   var charNumbers = new promptsClass(prompts.numbers, "Number", chars.numbers, charSet);
-  charNumbers.validate();
+  if (charNumbers.validate() === false) {
+    return;
+  };
   var charSymbols = new promptsClass(prompts.symbols, "Symbol", chars.symbols, charSet);
-  charSymbols.validate();
+  if (charSymbols.validate() === false) {
+    return;
+  };
   if (failSafe.length == 4) {  //checks the failsafe array
     alert("You must select at least one criteria!");
   return;
   };
   var charLength = Number(prompt("Choose a password length between 8-128."));
-  var passLength = checkLength(charLength);  //checks the length for the correct length
+  var passLength = checkLength(charLength);
+  if (passLength === false) {  //checks the password length for the correct length
+    return;
+  };
   var criteriaSeed = pickArray(charSet) //calls custom function to guarantee user criteria is in the password
   var passwordChars = charSet.flat(1).join(''); //flatens our multi-dimensional array, and combines it into a single string
   var characterSeed = ""; //need to define a empty string for our while loop
