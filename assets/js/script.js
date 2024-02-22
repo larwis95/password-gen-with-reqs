@@ -120,6 +120,11 @@ function generatePassword() {
   charSet = [] //our charset multi-dimensional array, it will hold all the criteria the user chooses
   failSafe = [] //failsafe array to check if every input was "n"
   var passLength;
+  var charLength = Number(prompt("Choose a password length between 8-128."));
+  var passLength = checkLength(charLength);
+  if (passLength === false) {  //checks the password length for the correct length
+    return;
+  };
   var charUpper = new promptsClass(prompts.upperCase, "Upper Case", chars.upper, charSet);
   if (charUpper.validate() === false) {
     return;
@@ -139,11 +144,6 @@ function generatePassword() {
   if (failSafe.length == 4) {  //checks the failsafe array
     alert("You must select at least one criteria!");
   return;
-  };
-  var charLength = Number(prompt("Choose a password length between 8-128."));
-  var passLength = checkLength(charLength);
-  if (passLength === false) {  //checks the password length for the correct length
-    return;
   };
   var criteriaSeed = pickArray(charSet) //calls custom function to guarantee user criteria is in the password
   var passwordChars = charSet.flat(1).join(''); //flatens our multi-dimensional array, and combines it into a single string
