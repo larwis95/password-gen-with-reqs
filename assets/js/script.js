@@ -1,19 +1,19 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var copyBtn = document.querySelector("#copy")
+var copyBtn = document.querySelector("#copy");
 
-var chars = {
+var chars = { //object to hold our criteria
   upper: ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"],
   lower: ["abcdefghijklmnopqrstuvwxyz"],
   numbers: ["0123456789"],
   symbols: ["!@#$%^&*()-_=+"]
 };
 
-var charSet = [];
+var charSet = []; //array to hold what criteria gets picked
 
-var failSafe = [];
+var failSafe = []; //array to check if all answers were "n" to end script if they are
 
-var prompts = {
+var prompts = {  //object to hold our prompts text
   upperCase: "Would you like upper case letters included? Y/N",
   lowerCase: "Would you like lower case letters included? Y/N",
   numbers: "Would you like numbers included? Y/N",
@@ -51,27 +51,26 @@ function setText () {
   document.getElementById("password").value = "Generate a password below!";
 };
 
-
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  if (password === undefined) {
+  if (password === undefined) { //if the function returns and undefined sets the pasaword to default text
   document.getElementById("password").value = "Generate a password below!";
   }
   else {
-    document.getElementById("password").value = password;
+    document.getElementById("password").value = password; //otherwise sets it to what generatepassword() returned
   };
 };
 
 //copy password to clipboard
 function copyPassword() {
-  var copyText = document.getElementById("password").value
-  if (copyText !== "Generate a password below!" && copyText !== "undefined" ) {
+  var copyText = document.getElementById("password").value;
+  if (copyText !== "Generate a password below!" && copyText !== "undefined" ) {  //checks to make sure its a valid copy
     navigator.clipboard.writeText(copyText);
     alert("Your password was copied to the clip board!");
   }
   else {
-    alert("Generate a password first before copying!")
+    alert("Generate a password first before copying!") //if its not a valid copy alerts the user to generate a password first
   return;
   };
 };
@@ -92,7 +91,7 @@ function shufflePassword(string) {
 function pickArray(mainArray) {
   var criteriaSeed = [];
   if (mainArray.length === 1) {
-    var splitArray = mainArray[0][0].split('')
+    var splitArray = mainArray[0][0].split('');
     criteriaSeed.push(splitArray[Math.floor(Math.random() * splitArray.length)]);
   }
   else { //defines an array to put our values picked from the mainArray into
@@ -112,23 +111,23 @@ if (charLength >= 8 && charLength <= 128 && charLength !== undefined) { //checks
 }
 else {
   alert("You must choose a number between: 8-128!");
-  return false;
+  return false; //returns false if password length isn't valid
 }
 };
 
 function generatePassword() {
-  charSet = [] //our charset multi-dimensional array, it will hold all the criteria the user chooses
-  failSafe = [] //failsafe array to check if every input was "n"
+  charSet = [] //our charset multi-dimensional array, it will hold all the criteria the user chooses, since these are in global scope, we have to reset it everytime we run the function
+  failSafe = [] //failsafe array to check if every input was "n", resets it on function run because its in global scope
   var passLength;
   var charLength = Number(prompt("Choose a password length between 8-128."));
-  var passLength = checkLength(charLength);
-  if (passLength === false) {  //checks the password length for the correct length
+  var passLength = checkLength(charLength); //checks the password length for tbe correct length
+  if (passLength === false) {  //if not valid length we end the function
     return;
   };
-  var charUpper = new promptsClass(prompts.upperCase, "Upper Case", chars.upper, charSet);
-  if (charUpper.validate() === false) {
-    return;
-  }; //makes sure we have a valid input for the prompt
+  var charUpper = new promptsClass(prompts.upperCase, "Upper Case", chars.upper, charSet); //creates our promp object from the promptsClass
+  if (charUpper.validate() === false) {  //custom method to validate our prompt answer
+    return; //if no valid prompt response ends the function
+  }; 
   var charLower = new promptsClass(prompts.lowerCase, "Lower Case", chars.lower, charSet);
   if (charLower.validate() === false) {
     return;
@@ -145,7 +144,7 @@ function generatePassword() {
     alert("You must select at least one criteria!");
   return;
   };
-  var criteriaSeed = pickArray(charSet) //calls custom function to guarantee user criteria is in the password
+  var criteriaSeed = pickArray(charSet); //calls custom function to guarantee user criteria is in the password
   var passwordChars = charSet.flat(1).join(''); //flatens our multi-dimensional array, and combines it into a single string
   var characterSeed = ""; //need to define a empty string for our while loop
   var passFun = ""; //defines the final password variable
@@ -160,6 +159,6 @@ function generatePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-copyBtn.addEventListener("click", copyPassword);
-document.addEventListener("DOMContentLoaded", setText());
+copyBtn.addEventListener("click", copyPassword); //event listener for generate button
+document.addEventListener("DOMContentLoaded", setText()); //event listern to settext on page load
 

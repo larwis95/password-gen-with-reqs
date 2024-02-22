@@ -16,7 +16,7 @@ Open https://larwis95.github.io/password-gen-with-reqs/ in your browser. Click t
 
 ## Credits
 Maximilian Lindsey: https://stackoverflow.com/a/34025991
--Shuffle string function line 35-44 of assets/js/scripts.js
+-Shuffle string function lines 92-102 of assets/js/scripts.js
 
 ## License
 
